@@ -1,0 +1,25 @@
+{
+  "name": "internet_programming_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ayman-Marghani/Internet_programming_project.git"
+  },
+  "author": "Ayman Marghani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ayman-Marghani/Internet_programming_project/issues"
+  },
+  "homepage": "https://github.com/Ayman-Marghani/Internet_programming_project#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mysql-await": "^2.2.3",
+    "prompt": "^1.3.0",
+    "tunnel-ssh": "^5.1.2"
+  }
+}
