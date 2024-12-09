@@ -15,6 +15,9 @@ var connPool = mysql.createPool({
 // Output: the id of new Todo
 async function addTodo(data) {
   const { title, done, deadline } = data;
+  if (title === undefined || done === undefined || deadline === undefined) {
+    return -1;
+  }
   const res = await connPool.awaitQuery("INSERT INTO Todo (title, done, deadline) VALUES (?, ?, ?);", [title, done, deadline]);
   return res.insertId;
 }

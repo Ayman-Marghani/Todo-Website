@@ -1,0 +1,25 @@
+extends template.pug
+
+block js_script
+  script(src="/js/script.js" defer=true)
+
+block content
+  .main-content
+    .filter-btns 
+      button#all-btn All
+      button#done-btn Done
+      button#undone-btn Undone
+      button#overdue-btn Overdue 
+  
+    .tasks 
+      .task
+        .task-container
+          .task-subcontainer
+            input(type="checkbox" id="task-checkbox")
+            .task-title Todo title
+          .task-subcontainer
+            button.task-edit-btn ✏️
+            button.task-del-btn 🗑️
+        .task-deadline Due: Dec 12, 2024
+    
+    button.add-task-btn Add a Todo

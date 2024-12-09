@@ -22,18 +22,40 @@ async function renderHomePage(req, res) {
   if (!option) option = "all"
 
   const todos = await data.getTodos(option)
-  res.status(200).send(todos)
-  // res.status(200).render("gallery.pug", {listings})
+  // res.status(200).send(todos)
+  res.status(200).render("home.pug", {todos})
 }
 
 async function createNewTodo(req, res) {
-  
+  const input = {
+    title: req.body.title,
+    done: req.body.done,
+    deadline: req.body.deadline
+  }
+  const queryResId = await data.addTodo(input)
+  if (queryResId === -1) {
+    res.status(400).render("create_fail.pug")
+  }
+  else {
+    // Send the response
+    res.status(201).send()
+  }
 }
+
+// needs an interface before testing
+// could be a hidden input in html
 async function updateTodo(req, res) {
-  
+
 }
 async function deleteTodo(req, res) {
-  
+  const id = req.params.id
+  const queryRes = await data.deleteTodo(id)
+  if (queryRes) {
+    res.status(204).send()
+  }
+  else {
+    res.status(404).render("404.pug")
+  }
 }
 
 // GET requests
@@ -47,8 +69,7 @@ app.post('/create_todo', createNewTodo)
 app.delete('/update_todo', updateTodo)
 
 // DELETE requests
-// or maybe /delete_todo/:id ???
-app.delete('/delete_todo', deleteTodo)
+app.delete('/delete_todo/:id', deleteTodo)
 
 // Default route (404)
 app.use((req, res) => {
