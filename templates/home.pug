@@ -1,25 +1,43 @@
 extends template.pug
 
+mixin task(item)
+  .task
+    .task-container
+      .task-subcontainer
+        input(type="checkbox" id="task-checkbox" checked=item.done===1)
+        .task-title #{item.title}
+      .task-subcontainer
+        - updateLink = `/update/${item.id}`
+        a.task-edit-btn(href=updateLink) ✏️
+        button.task-del-btn(data-todo-id=item.id type="button") 🗑️
+    - deadline = item.deadline.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+    .task-deadline Due: #{deadline}
+
 block js_script
-  script(src="/js/script.js" defer=true)
+  script(src="/js/home_script.js" defer=true)
 
 block content
   .main-content
-    .filter-btns 
-      button#all-btn All
-      button#done-btn Done
-      button#undone-btn Undone
-      button#overdue-btn Overdue 
+    .filter-btns
+      if option !== "done" && option !== "undone" && option !== "overdue"
+        button#all.filter-btn.selected All
+      else 
+        button#all.filter-btn All
+      if option === "done"
+        button#done.filter-btn.selected Done
+      else
+        button#done.filter-btn Done
+      if option === "undone"
+        button#undone.filter-btn.selected Undone
+      else
+        button#undone.filter-btn Undone
+      if option === "overdue"
+        button#overdue.filter-btn.selected Overdue 
+      else
+        button#overdue.filter-btn Overdue 
   
     .tasks 
-      .task
-        .task-container
-          .task-subcontainer
-            input(type="checkbox" id="task-checkbox")
-            .task-title Todo title
-          .task-subcontainer
-            button.task-edit-btn ✏️
-            button.task-del-btn 🗑️
-        .task-deadline Due: Dec 12, 2024
+      each item in todos
+        +task(item)
     
-    button.add-task-btn Add a Todo
+    a.add-task-btn(href="/create") Add a Todo

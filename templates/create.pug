@@ -1,0 +1,18 @@
+extends template.pug
+
+block content
+  h1.form-heading Add a Todo
+  form.create-form(action='/create_todo' method='POST')
+    p
+      label(for='title') Title:
+      br
+      input#title(type='text' name='title' placeholder='Todo title' required=true)
+    p.done-input-p
+      label(for="done") Done: 
+      input#done-input(type='checkbox' name='done') 
+    p
+      label(for='deadline') Deadline:
+      br
+      input#deadline(type='date' name='deadline' required=true)
+    p
+      input.form-btn(type='submit' value='Submit')

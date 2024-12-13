@@ -16,60 +16,95 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.url} ${res.statusCode}`)
 })
 
-// functions
+// Render functions
 async function renderHomePage(req, res) {
   let option = req.query.option
   if (!option) option = "all"
 
   const todos = await data.getTodos(option)
-  // res.status(200).send(todos)
-  res.status(200).render("home.pug", {todos})
+  res.status(200).render("home.pug", {todos, option})
+}
+
+async function renderCreateForm(req, res) {
+  res.status(200).render("create.pug")
+}
+
+async function renderUpdateForm(req, res) {
+  const todoId = req.params.id
+  if (!isNaN(todoId)) {
+    const todo = await data.getTodoById(todoId)
+    const item = {
+      id:todo[0].id,
+      title:todo[0].title,
+      done:todo[0].done,
+      deadline:todo[0].deadline.toLocaleDateString('en-CA') // Convert to "yyyy-mm-dd" date format
+    }
+    res.status(200).render("update.pug", item)
+  }
+  else {
+    res.status(400).render("failure.pug")
+  }
 }
 
 async function createNewTodo(req, res) {
   const input = {
     title: req.body.title,
-    done: req.body.done,
+    done: req.body.done === 'on' ? 1 : 0,
     deadline: req.body.deadline
   }
+
   const queryResId = await data.addTodo(input)
   if (queryResId === -1) {
-    res.status(400).render("create_fail.pug")
+    res.status(400).render("failure.pug")
   }
   else {
-    // Send the response
-    res.status(201).send()
+    // Redirect to home page
+    res.location('http://localhost:4131/home')
+    res.status(303).send()
   }
 }
 
-// needs an interface before testing
-// could be a hidden input in html
 async function updateTodo(req, res) {
+  const input = {
+    id: req.body.id,
+    title: req.body.title,
+    done: req.body.done ? 1 : 0,
+    deadline: req.body.deadline
+  }
 
+  const queryRes = await data.updateTodo(input)
+  if (queryRes) {
+    res.status(204).send()
+  }
+  else {
+    res.status(400).render("failure.pug")
+  }
 }
+
 async function deleteTodo(req, res) {
-  const id = req.params.id
+  const id = req.body.todo_id
   const queryRes = await data.deleteTodo(id)
   if (queryRes) {
     res.status(204).send()
   }
   else {
-    res.status(404).render("404.pug")
+    res.status(400).render("failure.pug")
   }
 }
 
 // GET requests
 app.get(['/', '/home'], renderHomePage)
+app.get('/create', renderCreateForm)
+app.get('/update/:id', renderUpdateForm)
 
 // POST requests
 app.post('/create_todo', createNewTodo)
 
 // PUT requests
-// or maybe /update_todo/:id ???
-app.delete('/update_todo', updateTodo)
+app.put('/update_todo', updateTodo)
 
 // DELETE requests
-app.delete('/delete_todo/:id', deleteTodo)
+app.delete('/delete_todo', deleteTodo)
 
 // Default route (404)
 app.use((req, res) => {
@@ -77,5 +112,5 @@ app.use((req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Premier Auctions Server listening on port ${port}`) 
+  console.log(`Premier Auctions Server running: http://localhost:${port}`) 
 })

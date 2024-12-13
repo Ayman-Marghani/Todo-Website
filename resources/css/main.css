@@ -1,6 +1,3 @@
-/* Font */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Prata&display=swap');
-
 /* General styles */
 * {
   margin: 0;
@@ -13,7 +10,6 @@ body {
 }
 
 input, select, textarea, button {
-  /* padding: 0.5rem 0.2rem; */
   font: inherit;
 }
 
@@ -31,16 +27,16 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  text-align: center;
+  margin: 1.5rem 0;
+}
 /***********************************************/
 /* NavBar */
 nav {  
   background-color: #00b300;
   
   padding: 1.5rem;
-}
-
-nav li {
-  list-style-type: none;
 }
 
 nav li {
@@ -58,7 +54,6 @@ nav li {
   
   color: #fff;
 }
-
 /***********************************************/
 /* Main content box */
 .main-content {
@@ -69,20 +64,21 @@ nav li {
   flex-direction: column;
   gap: 1.5rem;
 }
-
+/***********************************************/
 /* Filter buttons section */
 .filter-btns {
   display: flex;
+  justify-content: center;
   gap: 1rem;
 }
 
-#all-btn {
+.selected {
   background-color: #ff0000;
   color: #fff;
   padding: 0.5rem 1.5rem;
   border-radius: 100px;
 }
-
+/***********************************************/
 /* Tasks section */
 .tasks {
   display: flex;
@@ -102,9 +98,20 @@ nav li {
   gap: 0.5rem;
 }
 
-#task-checkbox {
+#task-checkbox,
+#done-input {
   cursor: pointer;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #00b300;
+  transform: scale(1.1);
 }
+
+#task-checkbox:hover,
+#done-input:hover {
+  transform: scale(1.2);
+}
+
 .task-title {
   font-size: 1.3rem;
 }
@@ -113,7 +120,7 @@ nav li {
   font-size: 0.8rem;
   margin-left: 1.5rem;
 }
-
+/* Add new task button */
 .add-task-btn {
   background-color: #00b300;
   color: #fff;
@@ -122,4 +129,42 @@ nav li {
 
   margin: 0 auto;
   max-width: fit-content;
+}
+
+.add-task-btn:hover {
+  background-color: #00cc00;
+}
+/******************************************/
+/* Add/Update Todo form */
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  margin: 0 auto;
+  max-width: fit-content;
+}
+
+.create-form input {
+  box-sizing: border-box;
+  width: 16rem;
+}
+
+.create-form label {
+  font-size: 1.2rem;
+}
+
+.done-input-p {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-btn {
+  color: #fff;
+  background-color: #2980B9;
+  border: none;
+  padding: 0.5rem;
+
+  cursor: pointer;
 }
