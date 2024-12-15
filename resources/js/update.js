@@ -19,7 +19,7 @@ formUpdateBtn.addEventListener("click", async (event) => {
   event.preventDefault();
   const todoId = parseInt(formUpdateBtn.getAttribute("data-todo-id"));
   const title = document.getElementById("title").value;
-  const done = document.getElementById("done").checked;
+  const done = document.getElementById("done-input").checked;
   const deadline = document.getElementById("deadline").value;
 
   const response = await sendUpdateReq(todoId, title, done, deadline);

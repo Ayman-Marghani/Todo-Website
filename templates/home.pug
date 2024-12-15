@@ -4,7 +4,7 @@ mixin task(item)
   .task
     .task-container
       .task-subcontainer
-        input(type="checkbox" id="task-checkbox" checked=item.done===1)
+        input(type="checkbox" class="task-checkbox" checked=item.done===1 data-todo-id=item.id)
         .task-title #{item.title}
       .task-subcontainer
         - updateLink = `/update/${item.id}`
@@ -39,5 +39,5 @@ block content
     .tasks 
       each item in todos
         +task(item)
-    
-    a.add-task-btn(href="/create") Add a Todo
+    if session && session.userName
+      a.add-task-btn(href="/create") Add a Todo

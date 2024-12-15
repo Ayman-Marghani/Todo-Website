@@ -8,9 +8,12 @@ html(lang="en")
     title ToDo App
   body 
     nav 
-      ul.nav-links 
-        li 
-          a(href="/home") My Tasks
-        li 
+      .nav-links 
+        a(href="/home") My Tasks
+        if session && session.userName
           a(href="/logout") Logout
+        else 
+          .nav-sub
+            a(href="/login") Login
+            a(href="/register") Register
     block content

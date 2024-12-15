@@ -1,0 +1,16 @@
+extends template.pug
+
+block content
+  - heading = state === "login" ? "Login" : "Register"
+  h1.form-heading #{heading}
+  form.create-form(action=state method='POST')
+    p
+      label(for='username') Username:
+      br
+      input#username(type='text' name='username' required=true)
+    p
+      label(for='password') Password:
+      br
+      input#password(type='password' name='password' required=true)
+    p
+      input.form-btn(type='submit' value='Submit')

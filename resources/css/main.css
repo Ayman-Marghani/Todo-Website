@@ -35,7 +35,6 @@ h1 {
 /* NavBar */
 nav {  
   background-color: #00b300;
-  
   padding: 1.5rem;
 }
 
@@ -51,15 +50,18 @@ nav li {
 
 .nav-links a {
   font-weight: 800;
-  
   color: #fff;
+}
+
+.nav-sub {
+  display: flex;
+  gap: 1rem;
 }
 /***********************************************/
 /* Main content box */
 .main-content {
   margin: 1.5rem auto;
   max-width: fit-content;
-
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -98,7 +100,7 @@ nav li {
   gap: 0.5rem;
 }
 
-#task-checkbox,
+.task-checkbox,
 #done-input {
   cursor: pointer;
   width: 1.1rem;
@@ -107,7 +109,7 @@ nav li {
   transform: scale(1.1);
 }
 
-#task-checkbox:hover,
+.task-checkbox:hover,
 #done-input:hover {
   transform: scale(1.2);
 }
@@ -140,7 +142,6 @@ nav li {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-
   margin: 0 auto;
   max-width: fit-content;
 }
@@ -165,6 +166,5 @@ nav li {
   background-color: #2980B9;
   border: none;
   padding: 0.5rem;
-
   cursor: pointer;
 }

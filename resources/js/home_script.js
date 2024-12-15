@@ -1,10 +1,11 @@
 const deleteBtns = document.querySelectorAll(".task-del-btn");
 const filterBtns = document.querySelectorAll(".filter-btn");
+const tasksCheckboxes = document.querySelectorAll(".task-checkbox");
 
-// Functions
-async function sendDeleteReq(todoId) {
-  let response = await fetch("http://localhost:4131/delete_todo", {
-    method: "DELETE",
+// Functions 
+async function sendReq(route, reqMethod, todoId) {
+  let response = await fetch(`http://localhost:4131/${route}`, {
+    method: reqMethod,
     body: JSON.stringify({"todo_id": todoId}),
     headers: {
       "Content-Type": "application/json",
@@ -14,10 +15,9 @@ async function sendDeleteReq(todoId) {
 }
 
 async function deleteTodo(todoId, todoElem) {
-  const response = await sendDeleteReq(todoId);
+  const response = await sendReq("delete_todo", "DELETE", todoId);
   if (response.status === 204) {
     todoElem.remove();
-    console.log("success removing elem")
   }
 }
 
@@ -33,6 +33,14 @@ deleteBtns.forEach((btn) => {
 
 filterBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
+    // filter todos based on the button
     window.location.href = `http://localhost:4131/home?option=${btn.id}`;
+  });
+});
+
+tasksCheckboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", async () => {
+    const todoId = parseInt(checkbox.getAttribute("data-todo-id"));
+    await sendReq("change_done", "PUT", todoId);
   });
 });
