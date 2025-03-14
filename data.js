@@ -2,11 +2,11 @@
 const mysql = require(`mysql-await`); 
 
 var connPool = mysql.createPool({
-  connectionLimit: 10, // it's a shared resource, let's not go nuts.
+  connectionLimit: 10, 
   host: "127.0.0.1",
   user: "C4131F24U81",
   database: "C4131F24U81",
-  password: "6611", 
+  password: "", 
 });
 
 // Helper functions

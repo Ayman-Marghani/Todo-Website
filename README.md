@@ -1,21 +1,5 @@
-# Internet Programming Project: Todo List Web App
+# Todo List Web App
 
-## How to Launch Software
-
-1. Install dependencies:
-```bash
-npm install
-```
-2. Run tunnel.js file
-```bash
-node tunnel.js
-```
-3. Start the server:
-```bash
-node server.js
-```
-4. Access the application at: http://localhost:4131
-   
 ## Features Implemented
 
 ### Core Features
@@ -33,8 +17,29 @@ node server.js
 - Account creation system
 - Logout
   
-## Test Users
+## Technologies used
+- Node.js
+- Express.js
+- MySQL
+- Pug (for templating)
+- CSS (for styling)
+- JavaScript (for client-side scripting)
 
-### Pre-created accounts for testing:
-- Username: ayman | Password: test123
-- Username: ayman2 | Password: testing
+## API endpoints
+
+### User Endpoints
+- `POST /register`: Register a new user
+- `POST /login`: Login a user
+- `GET /logout`: Logout a user
+
+### Todo Endpoints
+- `GET /home`: View all todos
+- `GET /create`: Render form to create a new todo
+- `POST /create_todo`: Create a new todo
+- `GET /update/:id`: Render form to update a todo
+- `PUT /update_todo`: Update a todo
+- `PUT /change_done`: Change the done state of a todo
+- `DELETE /delete_todo`: Delete a todo
+- 
+## Credits
+Developed as part of University of Minnesota Internet Programming course
